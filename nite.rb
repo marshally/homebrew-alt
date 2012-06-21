@@ -30,7 +30,7 @@ class Nite < Formula
           puts "installing lib '#{so}'... " if ENV['V'] == '1'
           lib.install so
           puts "Registering module '#{base}'... " if ENV['V'] == '1'
-          cmd = "export OPEN_NI_INSTALL_PATH=#{HOMEBREW_PREFIX}; niReg -v #{lib}/#{base} #{etc}/primesense/#{feature}"
+          cmd = "export OPEN_NI_INSTALL_PATH=#{HOMEBREW_PREFIX}; niReg -v -r #{lib}/#{base} #{etc}/primesense/#{feature}"
           if `#{cmd}`.include? "Error"
             puts "Error installing #{base}"
             exit 1
@@ -41,6 +41,19 @@ class Nite < Formula
       end
     end
     
+    # these libs actually come from the openni.rb formula, but can't be
+    # installed due to the order that homebrew installs things
+    ["libnimMockNodes.dylib", "libnimCodecs.dylib", "libnimRecorder.dylib"].each do |mod|
+      fullpath = "#{HOMEBREW_PREFIX}\/lib\/#{mod}"
+      if File.exists? fullpath
+        cmd = "export OPEN_NI_INSTALL_PATH=#{HOMEBREW_PREFIX}; niReg -r -v #{fullpath}"
+        unless `#{cmd}`.include? "Done"
+          puts "Error installing #{mod}"
+          puts "#{cmd}"
+          exit 1
+        end
+      end
+    end
     `export OPEN_NI_INSTALL_PATH=#{HOMEBREW_PREFIX}; niLicense PrimeSense 0KOIk2JeIBYClPWVnMoRKn5cdY4=`
   end
   
@@ -52,6 +65,10 @@ class Nite < Formula
       * On Zsh, add them to `~/.zprofile` instead.
 
     export OPEN_NI_INSTALL_PATH=#{HOMEBREW_PREFIX}
+    
+    Also, expect some errors that look like:
+      Warning: Could not fix install names for ...
+
     EOS
   end
 end
