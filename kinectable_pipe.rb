@@ -2,9 +2,9 @@ require 'formula'
 
 class KinectablePipe < Formula
   homepage 'https://github.com/marshally/kinectable_pipe'
-  url 'https://github.com/marshally/kinectable_pipe/tarball/master'
-  version '0.0.1'
-  md5 'a9662ee3e4756319d621a5bf5c7ac720'
+  url 'https://github.com/marshally/kinectable_pipe/tarball/v0.0.2'
+  version '0.0.2'
+  md5 'a7c7bb602293de850f4108912634f5f6'
 
   depends_on 'sensor_kinect'
 
