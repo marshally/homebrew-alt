@@ -6,7 +6,7 @@ class Pngxx < Formula
   sha1 'bfe39c414a8c5c18dbaaf96fea22ce12a6887576'
   version '0.2.5'
 
-  depends_on 'homebrew/versions/libpng12' => :alt
+  depends_on 'libpng'
 
   def install
     include.install Dir['*.hpp']
