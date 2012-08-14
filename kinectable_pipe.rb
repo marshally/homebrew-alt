@@ -2,11 +2,12 @@ require 'formula'
 
 class KinectablePipe < Formula
   homepage 'https://github.com/marshally/kinectable_pipe'
-  url 'https://github.com/marshally/kinectable_pipe/tarball/master'
-  version '0.0.1'
-  md5 'a9662ee3e4756319d621a5bf5c7ac720'
+  url 'https://github.com/marshally/kinectable_pipe/tarball/v0.0.3'
+  version '0.0.3'
+  md5 '7f4b3cbb4409ad50be85835363ca91bb'
 
   depends_on 'sensor_kinect'
+  depends_on 'png++'
 
   def install
     system 'make clean'
