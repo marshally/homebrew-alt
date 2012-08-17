@@ -6,6 +6,8 @@ class OpenLighting < Formula
   version '0.8.20'
   md5 '421983a8e8d04540d5c769bfda0da3d7'
 
+  depends_on "automake"
+  depends_on "libtool"
   depends_on "python"
   depends_on "libusb"
   depends_on "cppunit"
@@ -15,11 +17,14 @@ class OpenLighting < Formula
   depends_on "libmicrohttpd"
 
   def install
-    system "autoreconf -i"
+    system "libtoolize --copy --force --ltdl"
+    system "autoreconf -i -f"
     system "./configure", "--prefix=#{prefix}",
                           "--disable-dependency-tracking",
-                          "--disable-slp" # , --enable-python-libs"
+                          "--disable-slp",
+                          "--disable-examples" # , --enable-python-libs"
 
+    system "make clean"
     system "make"
     system "make check"
     system "make install"
