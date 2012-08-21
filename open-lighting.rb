@@ -22,8 +22,9 @@ class OpenLighting < Formula
     system "autoreconf -i -f"
     system "./configure", "--prefix=#{prefix}",
                           "--disable-dependency-tracking",
-                          "--disable-slp",
-                          "--disable-examples" # , --enable-python-libs"
+                          "--disable-slp"
+                          #, "--disable-examples"
+                          #, "--enable-python-libs"
 
     system "make clean"
     system "make"
