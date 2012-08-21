@@ -17,7 +17,8 @@ class OpenLighting < Formula
   depends_on "libmicrohttpd"
 
   def install
-    system "libtoolize --copy --force --ltdl"
+    libtool = Formula.factory('libtool')
+    system "#{libtool.bin}/glibtoolize --copy --force --ltdl"
     system "autoreconf -i -f"
     system "./configure", "--prefix=#{prefix}",
                           "--disable-dependency-tracking",
