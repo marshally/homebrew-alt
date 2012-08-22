@@ -10,6 +10,11 @@ class KinectablePipe < Formula
   depends_on 'png++'
 
   def install
+    if MacOS.snow_leopard?    
+      text = File.read("Makefile")
+      text.gsub!(/png15/, "png12")
+      File.open("Makefile", "w") {|file| file.puts text}
+    end
     system 'make clean'
     bin.install 'kinectable_pipe'
   end
